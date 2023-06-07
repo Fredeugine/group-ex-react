@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "./App.css";
 import CardComponent from "./CardComponent.jsx";
 import LoginComponent from "./LoginComponent";
@@ -9,6 +9,17 @@ function App() {
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+
+  useEffect((function (){
+      let storeData = JSON.stringify(items)
+      localStorage.setItem('items',storeData)
+  }),[])
+
+    useEffect((() => {
+        let storedData = JSON.parse(localStorage.getItem('items'))
+        setItems(storedData)
+    }),[]);
+
 
   const updateItem = (index, text) => {
     let toUpdateItems = [...items];
